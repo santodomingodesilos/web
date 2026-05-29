@@ -136,6 +136,10 @@ nav.main-nav .submenu {
 
 nav.main-nav li:hover > .submenu { display: block; }
 
+nav.main-nav .submenu li {
+  position: relative;
+}
+
 nav.main-nav .submenu li a {
   display: block;
   padding: 10px 18px;
@@ -153,6 +157,18 @@ nav.main-nav .submenu li a:hover {
 nav.main-nav .submenu .submenu {
   top: 0;
   left: 100%;
+  border-top: none;
+  border-left: 2px solid var(--dorado);
+}
+
+/* Puente invisible para evitar que el submenú se cierre al mover el ratón diagonalmente */
+nav.main-nav .submenu .submenu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 8px;
+  height: 100%;
 }
 
 /* Hamburger (móvil) */
@@ -240,6 +256,7 @@ main.content {
   font-size: 1.25rem;
   font-weight: normal;
   margin-bottom: 4px;
+  color: var(--blanco);
 }
 
 .parish-card-header .address {
