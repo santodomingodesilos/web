@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bienvenido — Parroquias de Pinto</title>
+  <link rel="stylesheet" href="css/style.css">
+  
+</head>
+<body>
+
+<!-- CABECERA -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="site-logo">✝</div>
+    <div>
+      <div class="site-title"><a href="index.html">Parroquias de Pinto</a></div>
+      <div class="site-subtitle">Diócesis de Getafe</div>
+    </div>
+  </div>
+</header>
+
+<!-- NAVEGACIÓN -->
+<nav class="main-nav" aria-label="Navegación principal">
+  <button class="nav-toggle" onclick="this.parentElement.querySelector('ul').classList.toggle('open')">☰ Menú</button>
+  <ul>
+    <li><a href="index.html">Inicio</a></li>
+    <li>
+      <span>Santo Domingo de Silos ▾</span>
+      <ul class="submenu">
+        <li><a href="santo-domingo/index.html">Inicio</a></li>
+        <li><a href="santo-domingo/horarios.html">Horarios</a></li>
+        <li><a href="santo-domingo/avisos.html">Avisos parroquiales</a></li>
+        <li><a href="santo-domingo/adoracion.html">Adoración eucarística</a></li>
+        <li><a href="santo-domingo/iniciacion.html">Bautismo · Primera Comunión · Confirmación</a></li>
+        <li>
+          <a href="santo-domingo/bodas/index.html">Bodas ▸</a>
+          <ul class="submenu">
+            <li><a href="santo-domingo/bodas/cursillos.html">Cursillos prematrimoniales</a></li>
+            <li><a href="santo-domingo/bodas/normas.html">Normas para la celebración</a></li>
+            <li><a href="santo-domingo/bodas/preguntas.html">Preguntas frecuentes</a></li>
+            <li><a href="santo-domingo/bodas/repertorio.html">Repertorio musical</a></li>
+          </ul>
+        </li>
+        <li><a href="santo-domingo/santos/index.html">Los santos de la parroquia</a></li>
+        <li><a href="santo-domingo/contable/index.html">Información contable</a></li>
+        <li><a href="santo-domingo/colabora.html">Colabora con la parroquia</a></li>
+        <li><a href="santo-domingo/solicitud-bautismo.html">Solicitud de partida de Bautismo</a></li>
+      </ul>
+    </li>
+    <li><a href="san-jose/index.html">San José</a></li>
+    <li><a href="san-francisco-javier/index.html">San Francisco Javier</a></li>
+  </ul>
+</nav>
+<div class="parish-band "></div>
+
+<!-- CONTENIDO -->
+
+<div class="page-hero">
+  <div style="max-width:1100px;margin:0 auto">
+    <p class="parish-tag">Pinto · Madrid · España</p>
+    <h1>Parroquias de Pinto</h1>
+  </div>
+</div>
+<main class="content">
+  <p style="font-size:1.05rem;max-width:700px">
+    Bienvenido al sitio web de las tres parroquias de Pinto, pertenecientes a la 
+    <a href="https://www.diocesisgetafe.es">Diócesis de Getafe</a>.
+    Aquí encontrará toda la información sobre horarios, sacramentos y actividades de cada comunidad parroquial.
+  </p>
+
+  <div class="parish-grid">
+
+    <div class="parish-card">
+      <div class="parish-card-header sds">
+        <h2>Santo Domingo de Silos</h2>
+        <div class="address">Plaza de Egido de la Fuente, s/n &middot; Pinto</div>
+      </div>
+      <div class="parish-card-body">
+        <div class="schedule-item"><span class="days">Lun–Sáb:</span><span>20:00</span></div>
+        <div class="schedule-item"><span class="days">Domingos:</span><span>10:00 · 11:00 · 12:30 · 20:00</span></div>
+        <hr style="margin:12px 0;border:none;border-top:1px solid #e0ddd5">
+        <p style="font-size:0.88rem;color:#555">Tel. 91 691 12 14<br>
+        <a href="https://goo.gl/maps/vzL4CGBfJStvAebg7">Ver en Google Maps</a></p>
+      </div>
+      <div class="parish-card-footer">
+        <a href="santo-domingo/index.html" class="btn-parish sds">Visitar &rarr;</a>
+      </div>
+    </div>
+
+    <div class="parish-card">
+      <div class="parish-card-header sj">
+        <h2>San José</h2>
+        <div class="address">Calle Terreros, 8 &middot; Pinto</div>
+      </div>
+      <div class="parish-card-body">
+        <div class="schedule-item"><span class="days">Lun–Sáb:</span><span>20:00</span></div>
+        <div class="schedule-item"><span class="days">Domingos:</span><span>12:00 · 20:00</span></div>
+        <hr style="margin:12px 0;border:none;border-top:1px solid #e0ddd5">
+        <p style="font-size:0.88rem;color:#555">Tel. 638 231 036<br>
+        <a href="https://maps.app.goo.gl/jHF98Kpg8o5bAtcG6">Ver en Google Maps</a></p>
+      </div>
+      <div class="parish-card-footer">
+        <a href="san-jose/index.html" class="btn-parish sj">Visitar &rarr;</a>
+      </div>
+    </div>
+
+    <div class="parish-card">
+      <div class="parish-card-header sfj">
+        <h2>San Francisco Javier</h2>
+        <div class="address">Pinto (Madrid)</div>
+      </div>
+      <div class="parish-card-body">
+        <p style="font-size:0.9rem;color:#555">Consulte los horarios y la información de contacto en la página de la parroquia.</p>
+      </div>
+      <div class="parish-card-footer">
+        <a href="san-francisco-javier/index.html" class="btn-parish sfj">Visitar &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+
+<!-- PIE DE PÁGINA -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Santo Domingo de Silos</h4>
+      <p>Plaza de Egido de la Fuente, s/n<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:916911214">91 691 12 14</a><br>
+      <a href="mailto:santodomingodesilos-pinto@diocesisgetafe.es">santodomingodesilos-pinto@diocesisgetafe.es</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>San José</h4>
+      <p>Calle Terreros, 8<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:638231036">638 231 036</a><br>
+      <a href="mailto:sanjose-pinto@diocesisgetafe.es">sanjose-pinto@diocesisgetafe.es</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>San Francisco Javier</h4>
+      <p>Av. Antonio López, 11<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:679597310">679 597 310</a><br>
+      <a href="https://parroquiasanfranciscojavierpinto.es">parroquiasanfranciscojavierpinto.es</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Diócesis de Getafe</h4>
+      <p><a href="https://www.diocesisgetafe.es">diocesisgetafe.es</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; Parroquias de Pinto · Diócesis de Getafe
+  </div>
+</footer>
+
+<script>
+// Submenú responsive: click para abrir/cerrar en móvil
+document.querySelectorAll('.main-nav li > span').forEach(function(el) {
+  el.addEventListener('click', function() {
+    var li = this.parentElement;
+    li.classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+/* =============================================
+   Parroquias de Pinto — Hoja de estilos principal
+   ============================================= */
+
+:root {
+  --azul:    #1a3a5c;
+  --azul-cl: #2a5a8c;
+  --dorado:  #c9a227;
+  --dorado-cl: #e8c350;
+  --blanco:  #ffffff;
+  --gris-cl: #f5f5f0;
+  --gris:    #e0ddd5;
+  --texto:   #2c2c2c;
+  --texto-cl:#555;
+  --rojo:    #8b2020;
+}
+
+/* --- Reset & base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--texto);
+  background: var(--blanco);
+  line-height: 1.7;
+  font-size: 17px;
+}
+
+a { color: var(--azul-cl); text-decoration: none; }
+a:hover { text-decoration: underline; color: var(--rojo); }
+
+img { max-width: 100%; height: auto; }
+
+/* --- Cabecera --- */
+.site-header {
+  background: var(--azul);
+  color: var(--blanco);
+  padding: 0;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 20px 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-logo {
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--dorado-cl);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1.2;
+  min-width: 48px;
+}
+
+.site-title a {
+  color: var(--blanco);
+  font-size: 1.6rem;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+}
+
+.site-title a:hover { text-decoration: none; color: var(--dorado-cl); }
+
+.site-subtitle {
+  font-size: 0.85rem;
+  color: var(--dorado-cl);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  margin-top: 2px;
+}
+
+/* --- Navegación --- */
+nav.main-nav {
+  background: var(--azul-cl);
+  position: relative;
+  z-index: 100;
+}
+
+nav.main-nav ul {
+  list-style: none;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+nav.main-nav > ul > li {
+  position: relative;
+}
+
+nav.main-nav > ul > li > a,
+nav.main-nav > ul > li > span {
+  display: block;
+  padding: 12px 16px;
+  color: var(--blanco);
+  font-family: Arial, sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+nav.main-nav > ul > li > a:hover,
+nav.main-nav > ul > li:hover > span {
+  background: rgba(255,255,255,0.15);
+  text-decoration: none;
+  color: var(--dorado-cl);
+}
+
+nav.main-nav > ul > li.active > a {
+  background: rgba(255,255,255,0.2);
+  color: var(--dorado-cl);
+}
+
+/* Submenús */
+nav.main-nav .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--azul);
+  min-width: 260px;
+  border-top: 2px solid var(--dorado);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 200;
+}
+
+nav.main-nav li:hover > .submenu { display: block; }
+
+nav.main-nav .submenu li a {
+  display: block;
+  padding: 10px 18px;
+  color: var(--gris);
+  font-family: Arial, sans-serif;
+  font-size: 0.84rem;
+}
+
+nav.main-nav .submenu li a:hover {
+  background: var(--azul-cl);
+  color: var(--dorado-cl);
+  text-decoration: none;
+}
+
+nav.main-nav .submenu .submenu {
+  top: 0;
+  left: 100%;
+}
+
+/* Hamburger (móvil) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--blanco);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+/* --- Franja de parroquia (color diferenciador) --- */
+.parish-band {
+  height: 5px;
+  background: var(--dorado);
+}
+.parish-band.sds  { background: var(--dorado); }
+.parish-band.sj   { background: #4a7c59; }
+.parish-band.sfj  { background: #7c4a4a; }
+
+/* --- Contenido principal --- */
+.page-hero {
+  background: var(--gris-cl);
+  padding: 30px 20px;
+  border-bottom: 1px solid var(--gris);
+}
+
+.page-hero h1 {
+  max-width: 1100px;
+  margin: 0 auto;
+  font-size: 1.9rem;
+  color: var(--azul);
+  font-weight: normal;
+  letter-spacing: 0.01em;
+}
+
+.page-hero .parish-tag {
+  font-family: Arial, sans-serif;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--texto-cl);
+  margin-bottom: 8px;
+}
+
+main.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+.content-narrow {
+  max-width: 760px;
+}
+
+/* --- Tarjetas de parroquias (portada) --- */
+.parish-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 28px;
+  margin: 40px 0;
+}
+
+.parish-card {
+  border: 1px solid var(--gris);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.parish-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+
+.parish-card-header {
+  padding: 22px 24px 18px;
+  color: var(--blanco);
+}
+
+.parish-card-header.sds { background: var(--azul); }
+.parish-card-header.sj  { background: #2e5c3a; }
+.parish-card-header.sfj { background: #5c2e2e; }
+
+.parish-card-header h2 {
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin-bottom: 4px;
+}
+
+.parish-card-header .address {
+  font-size: 0.82rem;
+  opacity: 0.85;
+  font-family: Arial, sans-serif;
+}
+
+.parish-card-body {
+  padding: 20px 24px;
+  font-size: 0.93rem;
+}
+
+.parish-card-body .schedule-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.schedule-item .days {
+  font-weight: bold;
+  color: var(--azul);
+  min-width: 140px;
+  font-family: Arial, sans-serif;
+}
+
+.parish-card-footer {
+  padding: 14px 24px;
+  background: var(--gris-cl);
+  border-top: 1px solid var(--gris);
+}
+
+.btn-parish {
+  display: inline-block;
+  padding: 9px 20px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: var(--blanco);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.btn-parish:hover { opacity: 0.85; text-decoration: none; color: var(--blanco); }
+.btn-parish.sds { background: var(--azul); }
+.btn-parish.sj  { background: #2e5c3a; }
+.btn-parish.sfj { background: #5c2e2e; }
+
+/* --- Tipografía de contenido --- */
+main h2 {
+  font-size: 1.4rem;
+  color: var(--azul);
+  font-weight: normal;
+  margin: 2rem 0 0.8rem;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--gris);
+}
+
+main h3 {
+  font-size: 1.1rem;
+  color: var(--azul-cl);
+  margin: 1.5rem 0 0.6rem;
+}
+
+main p { margin-bottom: 1rem; }
+
+main ul, main ol {
+  margin: 0.6rem 0 1rem 1.5rem;
+}
+
+main li { margin-bottom: 0.4rem; }
+
+main .highlight-box {
+  background: var(--gris-cl);
+  border-left: 4px solid var(--dorado);
+  padding: 16px 20px;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+main .highlight-box p:last-child { margin-bottom: 0; }
+
+main .contact-info {
+  background: var(--gris-cl);
+  border: 1px solid var(--gris);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin: 1.5rem 0;
+  font-family: Arial, sans-serif;
+  font-size: 0.93rem;
+}
+
+main .contact-info strong { color: var(--azul); }
+
+/* Breadcrumb */
+.breadcrumb {
+  font-family: Arial, sans-serif;
+  font-size: 0.82rem;
+  color: var(--texto-cl);
+  padding: 10px 0 20px;
+}
+
+.breadcrumb a { color: var(--azul-cl); }
+.breadcrumb span::before { content: " › "; }
+
+/* Horarios table */
+.horarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 2rem;
+}
+
+.horarios-table th {
+  background: var(--azul);
+  color: var(--blanco);
+  font-family: Arial, sans-serif;
+  font-size: 0.88rem;
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.horarios-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--gris);
+  font-size: 0.93rem;
+}
+
+.horarios-table tr:nth-child(even) td { background: var(--gris-cl); }
+
+/* Submenú lateral (santos, bodas, etc.) */
+.page-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.sidebar {
+  background: var(--gris-cl);
+  border: 1px solid var(--gris);
+  border-radius: 4px;
+  padding: 16px;
+  position: sticky;
+  top: 20px;
+}
+
+.sidebar h3 {
+  font-family: Arial, sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--texto-cl);
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--gris);
+  padding-bottom: 8px;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li { margin: 0; }
+
+.sidebar a {
+  display: block;
+  padding: 7px 10px;
+  color: var(--texto);
+  font-size: 0.9rem;
+  border-radius: 3px;
+}
+
+.sidebar a:hover, .sidebar a.active {
+  background: var(--azul);
+  color: var(--blanco);
+  text-decoration: none;
+}
+
+/* Contabilidad grid */
+.contable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+.contable-grid a {
+  background: var(--gris-cl);
+  border: 1px solid var(--gris);
+  padding: 10px 14px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.88rem;
+  display: block;
+  text-align: center;
+}
+
+.contable-grid a:hover {
+  background: var(--azul);
+  color: var(--blanco);
+  text-decoration: none;
+  border-color: var(--azul);
+}
+
+/* --- Pie de página --- */
+.site-footer {
+  background: var(--azul);
+  color: rgba(255,255,255,0.8);
+  padding: 40px 20px 24px;
+  margin-top: 60px;
+  font-family: Arial, sans-serif;
+  font-size: 0.88rem;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+}
+
+.footer-col h4 {
+  color: var(--dorado-cl);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.footer-col p, .footer-col a {
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+}
+
+.footer-col a:hover { color: var(--dorado-cl); text-decoration: none; }
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 28px auto 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+
+  nav.main-nav > ul {
+    display: none;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  nav.main-nav > ul.open { display: flex; }
+
+  nav.main-nav .submenu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: rgba(0,0,0,0.2);
+  }
+
+  nav.main-nav li:hover > .submenu { display: none; }
+  nav.main-nav li.open > .submenu { display: block; }
+
+  .page-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar { position: static; }
+
+  .site-title a { font-size: 1.2rem; }
+
+  main h2 { font-size: 1.2rem; }
+}
+
+@media (max-width: 480px) {
+  .header-inner { padding: 14px 16px; }
+  main.content { padding: 24px 16px 40px; }
+}
+
+/* --- Utilidades --- */
+.mt-0 { margin-top: 0 !important; }
+.note {
+  background: #fff8e1;
+  border-left: 4px solid var(--dorado);
+  padding: 12px 16px;
+  margin: 1rem 0;
+  font-size: 0.93rem;
+  border-radius: 0 3px 3px 0;
+}
