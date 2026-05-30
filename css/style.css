@@ -463,6 +463,72 @@ main .contact-info strong { color: var(--azul); }
   border-color: var(--azul);
 }
 
+/* Tabla contable anual */
+.contable-tabla-wrap {
+  overflow-x: auto;
+  margin: 1rem 0 2rem;
+}
+
+.contable-tabla {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 900px;
+  font-family: Arial, sans-serif;
+  font-size: 0.8rem;
+}
+
+.contable-tabla th {
+  background: var(--azul);
+  color: var(--blanco);
+  padding: 7px 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.contable-tabla th:first-child {
+  text-align: left;
+  min-width: 220px;
+}
+
+.contable-tabla td {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--gris);
+  white-space: nowrap;
+}
+
+.contable-tabla td:first-child {
+  text-align: left;
+  white-space: normal;
+}
+
+.contable-tabla td:not(:first-child) {
+  text-align: right;
+}
+
+.contable-tabla tbody tr:hover {
+  background: var(--gris-cl);
+}
+
+.contable-tabla tr.total-row td {
+  font-weight: bold;
+  background: #e8eef5;
+  border-top: 2px solid var(--azul);
+  border-bottom: 2px solid var(--azul);
+}
+
+.contable-tabla td.neg {
+  color: #c0392b;
+}
+
+.contable-tabla td.pos {
+  color: #1a5c2a;
+}
+
+.contable-tabla td.neg::after,
+.contable-tabla td.pos::after {
+  content: " €";
+}
+
 /* --- Pie de página --- */
 .site-footer {
   background: var(--azul);
@@ -553,4 +619,64 @@ main .contact-info strong { color: var(--azul); }
   margin: 1rem 0;
   font-size: 0.93rem;
   border-radius: 0 3px 3px 0;
+}
+
+/* Navegación entre años (páginas contables) */
+.year-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 1rem 0 1.5rem;
+}
+
+.year-nav-btn {
+  display: inline-block;
+  padding: 7px 16px;
+  background: var(--gris-cl);
+  border: 1px solid var(--gris);
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: 0.88rem;
+  text-decoration: none;
+  color: var(--azul);
+}
+
+.year-nav-btn:hover {
+  background: var(--azul);
+  color: var(--blanco);
+  border-color: var(--azul);
+  text-decoration: none;
+}
+
+.year-nav-index {
+  margin: 0 auto;
+}
+
+/* Tarjetas de año en página índice contable */
+.year-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  margin: 2rem 0;
+}
+
+.year-card {
+  display: block;
+  padding: 24px 16px;
+  background: var(--gris-cl);
+  border: 1px solid var(--gris);
+  border-radius: 4px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--azul);
+  text-decoration: none;
+}
+
+.year-card:hover {
+  background: var(--azul);
+  color: var(--blanco);
+  border-color: var(--azul);
+  text-decoration: none;
 }
