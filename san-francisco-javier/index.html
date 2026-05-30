@@ -106,10 +106,50 @@
     </tbody>
   </table>
 
-  <h2>Otros horarios</h2>
-  <table class="horarios-table">
-    <thead>
-      <tr><th>Celebración</th><th>Día y hora</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Adoración eucar�
+</main>
+
+<!-- PIE DE PÁGINA -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Santo Domingo de Silos</h4>
+      <p>Plaza de Egido de la Fuente, s/n<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:916911214">91 691 12 14</a><br>
+      <a href="mailto:santodomingodesilos-pinto@diocesisgetafe.es">santodomingodesilos-pinto@diocesisgetafe.es</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>San José</h4>
+      <p>Calle Terreros, 8<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:638231036">638 231 036</a><br>
+      <a href="mailto:sanjose-pinto@diocesisgetafe.es">sanjose-pinto@diocesisgetafe.es</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>San Francisco Javier</h4>
+      <p>Av. Antonio López, 11<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:679597310">679 597 310</a><br>
+      <a href="mailto:sanfranciscojavierpinto@hotmail.com">sanfranciscojavierpinto@hotmail.com</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Diócesis de Getafe</h4>
+      <p><a href="https://www.diocesisgetafe.es">diocesisgetafe.es</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; Parroquias de Pinto · Diócesis de Getafe
+  </div>
+</footer>
+
+<script>
+// Submenú responsive: click para abrir/cerrar en móvil
+document.querySelectorAll('.main-nav li > span').forEach(function(el) {
+  el.addEventListener('click', function() {
+    var li = this.parentElement;
+    li.classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>
