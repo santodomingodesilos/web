@@ -126,4 +126,11 @@
 <script>
 // Submenú responsive: click para abrir/cerrar en móvil
 document.querySelectorAll('.main-nav li > span').forEach(function(el) {
-  el.addEventListener('click
+  el.addEventListener('click', function() {
+    var li = this.parentElement;
+    li.classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>
