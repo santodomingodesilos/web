@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="Cómo colaborar con la Parroquia de Santo Domingo de Silos (Pinto, Madrid): donativo, transferencia bancaria, Bizum, PayPal y suscripción mensual.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Colabora con la parroquia — Parroquias de Pinto</title>
   <link rel="stylesheet" href="../css/style.css">
-  
 </head>
 <body>
 
@@ -57,7 +57,7 @@
 <!-- CONTENIDO -->
 
 <div class="page-hero">
-  <div style="max-width:1100px;margin:0 auto">
+  <div class="page-hero-inner">
     <p class="parish-tag">Santo Domingo de Silos</p>
     <h1>Colabora con la parroquia</h1>
   </div>
@@ -79,7 +79,7 @@
       <strong>Bizum:</strong> Código <strong>01301</strong> (donaciones)
     </li>
     <li>
-      <strong>PayPal:</strong> <a href="https://www.paypal.me/PSantoDomingodeSilos">paypal.me/PSantoDomingodeSilos</a>
+      <strong>PayPal:</strong> <a href="https://www.paypal.me/PSantoDomingodeSilos">Donar a través de PayPal</a>
     </li>
     <li>
       <strong>Recibo domiciliado mensual:</strong> 
@@ -138,13 +138,28 @@
 </footer>
 
 <script>
-// Submenú responsive: click para abrir/cerrar en móvil
-document.querySelectorAll('.main-nav li > span').forEach(function(el) {
-  el.addEventListener('click', function() {
-    var li = this.parentElement;
-    li.classList.toggle('open');
+(function () {
+  document.querySelectorAll('.main-nav li > span').forEach(function (el) {
+    el.addEventListener('click', function () { this.parentElement.classList.toggle('open'); });
   });
-});
+  var ruta = window.location.pathname;
+  if (ruta.endsWith('/')) ruta += 'index.html';
+  var mejor = null, mejorLen = 0;
+  document.querySelectorAll('.main-nav a').forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (!href) return;
+    var abs = new URL(href, window.location.href).pathname;
+    if (abs === ruta && abs.length > mejorLen) { mejor = a; mejorLen = abs.length; }
+  });
+  if (mejor) {
+    var li = mejor.closest('li');
+    while (li) {
+      li.classList.add('active');
+      var padre = li.parentElement;
+      li = (padre && padre.classList.contains('submenu')) ? padre.closest('li') : null;
+    }
+  }
+}());
 </script>
 </body>
 </html>

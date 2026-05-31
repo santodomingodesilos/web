@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="Sitio web de las tres parroquias del municipio de Pinto (Madrid): Santo Domingo de Silos, San José y San Francisco Javier.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bienvenido — Parroquias de Pinto</title>
   <link rel="stylesheet" href="css/style.css">
@@ -63,13 +64,13 @@
 <!-- CONTENIDO -->
 
 <div class="page-hero">
-  <div style="max-width:1100px;margin:0 auto">
+  <div class="page-hero-inner">
     <p class="parish-tag">Pinto · Madrid · España</p>
     <h1>Parroquia de Santo Domingo de Silos</h1>
   </div>
 </div>
 <main class="content">
-  <p style="font-size:1.05rem;max-width:700px">
+  <p class="intro-text">
     Bienvenido al sitio web de la Parroquia de Santo Domingo de Silos (Pinto, Madrid), perteneciente a la
     <a href="https://www.diocesisgetafe.es">Diócesis de Getafe</a>.
     Aquí encontrará toda la información sobre horarios, sacramentos y actividades de esta comunidad parroquial,
@@ -87,8 +88,8 @@
       <div class="parish-card-body">
         <div class="schedule-item"><span class="days">Lun–Sáb:</span><span>20:00</span></div>
         <div class="schedule-item"><span class="days">Domingos:</span><span>10:00 · 11:00 · 12:30 · 20:00</span></div>
-        <hr style="margin:12px 0;border:none;border-top:1px solid #e0ddd5">
-        <p style="font-size:0.88rem;color:#555">Tel. 91 691 12 14<br>
+        <hr class="card-divider">
+        <p class="contact-small">Tel. 91 691 12 14<br>
         <a href="https://goo.gl/maps/vzL4CGBfJStvAebg7">Ver en Google Maps</a></p>
       </div>
       <div class="parish-card-footer">
@@ -104,8 +105,8 @@
       <div class="parish-card-body">
         <div class="schedule-item"><span class="days">Lun–Sáb:</span><span>20:00</span></div>
         <div class="schedule-item"><span class="days">Domingos:</span><span>12:00 · 20:00</span></div>
-        <hr style="margin:12px 0;border:none;border-top:1px solid #e0ddd5">
-        <p style="font-size:0.88rem;color:#555">Tel. 638 231 036<br>
+        <hr class="card-divider">
+        <p class="contact-small">Tel. 638 231 036<br>
         <a href="https://maps.app.goo.gl/jHF98Kpg8o5bAtcG6">Ver en Google Maps</a><br>
         <a href="https://sites.google.com/view/parroquiadesanjose">Web de la parroquia</a></p>
       </div>
@@ -122,8 +123,8 @@
       <div class="parish-card-body">
         <div class="schedule-item"><span class="days">Lun–Sáb:</span><span>20:00</span></div>
         <div class="schedule-item"><span class="days">Domingos:</span><span>10:00 · 12:00 · 20:00</span></div>
-        <hr style="margin:12px 0;border:none;border-top:1px solid #e0ddd5">
-        <p style="font-size:0.88rem;color:#555">Tel. 679 597 310<br>
+        <hr class="card-divider">
+        <p class="contact-small">Tel. 679 597 310<br>
         <a href="https://maps.app.goo.gl/sTDSwVFgWLQg3Z3F8">Ver en Google Maps</a><br>
         <a href="https://parroquiasanfranciscojavierpinto.es">Web de la parroquia</a></p>
       </div>
@@ -170,13 +171,28 @@
 </footer>
 
 <script>
-// Submenú responsive: click para abrir/cerrar en móvil
-document.querySelectorAll('.main-nav li > span').forEach(function(el) {
-  el.addEventListener('click', function() {
-    var li = this.parentElement;
-    li.classList.toggle('open');
+(function () {
+  document.querySelectorAll('.main-nav li > span').forEach(function (el) {
+    el.addEventListener('click', function () { this.parentElement.classList.toggle('open'); });
   });
-});
+  var ruta = window.location.pathname;
+  if (ruta.endsWith('/')) ruta += 'index.html';
+  var mejor = null, mejorLen = 0;
+  document.querySelectorAll('.main-nav a').forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (!href) return;
+    var abs = new URL(href, window.location.href).pathname;
+    if (abs === ruta && abs.length > mejorLen) { mejor = a; mejorLen = abs.length; }
+  });
+  if (mejor) {
+    var li = mejor.closest('li');
+    while (li) {
+      li.classList.add('active');
+      var padre = li.parentElement;
+      li = (padre && padre.classList.contains('submenu')) ? padre.closest('li') : null;
+    }
+  }
+}());
 </script>
 </body>
 </html>
