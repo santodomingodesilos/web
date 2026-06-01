@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿A qué parroquia pertenezco? — Parroquias de Pinto</title>
+    <meta name="description" content="Consulta a qué parroquia de Pinto pertenece tu domicilio: Santo Domingo de Silos, San José o San Francisco Javier.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f2f5;
+            color: #222;
+        }
+
+        /* ── Cabecera ── */
+        header {
+            background: #1a3a5c;
+            color: white;
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+        }
+        header h1 { font-size: 1.45rem; font-weight: 700; }
+        header p  { font-size: 0.9rem; opacity: 0.82; margin-top: 0.35rem; }
+        header a  { color: #aad4ff; text-decoration: none; font-size: 0.85rem; display: inline-block; margin-top: 0.5rem; }
+        header a:hover { text-decoration: underline; }
+
+        /* ── Contenedor ── */
+        .wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 2.5rem; }
+
+        /* ── Tarjeta buscador ── */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.4rem 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 1.4rem;
+        }
+        .card h2 {
+            font-size: 1.05rem;
+            color: #1a3a5c;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .fg { display: flex; flex-direction: column; gap: 0.28rem; }
+        .fg label { font-size: 0.82rem; color: #555; font-weight: 600; letter-spacing: 0.01em; }
+        .fg-via    { flex: 1; min-width: 220px; }
+        .fg-numero { width: 90px; }
+
+        select, input[type="text"] {
+            padding: 0.52rem 0.8rem;
+            border: 1.5px solid #d0d5dd;
+            border-radius: 7px;
+            font-size: 0.95rem;
+            background: #fafafa;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.15s;
+        }
+        select:focus, input:focus { border-color: #1a3a5c; background: white; }
+
+        .btn {
+            padding: 0.58rem 1.6rem;
+            background: #1a3a5c;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s;
+        }
+        .btn:hover { background: #25527f; }
+        .btn:active { background: #123050; }
+
+        /* ── Resultado ── */
+        #resultado {
+            display: none;
+            margin-top: 1.1rem;
+            padding: 1rem 1.1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        #resultado.sds { background: #eaf0f8; border-left: 4px solid #1a3a5c; }
+        #resultado.sj  { background: #eaf4ec; border-left: 4px solid #2e5c3a; }
+        #resultado.sfj { background: #f5eaea; border-left: 4px solid #7a3030; }
+        #resultado.aviso { background: #fff8e1; border-left: 4px solid #f0a500; }
+        #resultado.error { background: #fdecea; border-left: 4px solid #c0392b; }
+
+        .res-titulo { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .res-detalle { color: #444; }
+        .res-detalle a { color: inherit; font-weight: 600; }
+
+        /* ── Mapa ── */
+        .map-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .map-header {
+            padding: 0.75rem 1.1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 1px solid #eee;
+        }
+        #map { height: 480px; }
+
+        /* ── Leyenda ── */
+        .leyenda {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.75rem 1.1rem;
+            border-top: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+        .leyenda-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+        .leyenda-color { width: 15px; height: 15px; border-radius: 3px; flex-shrink: 0; }
+
+        .nota {
+            font-size: 0.78rem;
+            color: #888;
+            text-align: center;
+            margin-top: 0.6rem;
+            padding: 0 0.5rem;
+        }
+
+        @media (max-width: 560px) {
+            .form-row { flex-direction: column; }
+            .fg-via, .fg-numero { min-width: unset; width: 100%; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>¿A qué parroquia pertenece mi domicilio?</h1>
+    <p>Parroquias de Pinto · Arciprestazgo de Valdemoro · Diócesis de Madrid</p>
+    <a href="#" onclick="history.back(); return false;">← Volver</a>
+</header>
+
+<div class="wrap">
+
+    <!-- Buscador -->
+    <div class="card">
+        <h2>🔍 Buscar por dirección</h2>
+        <div class="form-row">
+            <div class="fg fg-via">
+                <label for="nombre-via">Nombre de la vía</label>
+                <input type="text" id="nombre-via"
+                       list="calles-pinto"
+                       placeholder="ej. Calle Mayor, Avenida Juan Pablo II…"
+                       autocomplete="off">
+                <datalist id="calles-pinto"></datalist>
+            </div>
+            <div class="fg fg-numero">
+                <label for="numero">Número</label>
+                <input type="text" id="numero" placeholder="ej. 5">
+            </div>
+            <button class="btn" onclick="buscarDireccion()">Consultar</button>
+        </div>
+        <div id="resultado"></div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="map-card">
+        <div class="map-header">Mapa de territorios parroquiales</div>
+        <div id="map"></div>
+        <div class="leyenda">
+            <div class="leyenda-item">
+                <div class="leyenda-color" style="background:#1a3a5c"></div>
+                Santo Domingo de Silos
+            </div>
+            <div class="leyenda-item">
+                <div class="leyenda-color" style="background:#2e5c3a"></div>
+                San José
+            </div>
+            <div class="leyenda-item">
+                <div class="leyenda-color" style="background:#7a3030"></div>
+                San Francisco Javier
+            </div>
+        </div>
+    </div>
+    <p class="nota">Ante cualquier duda, consulta con la parroquia.</p>
+
+</div><!-- /wrap -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="territorios-data.js"></script>
+<script src="calles-pinto.js"></script>
+<script>
+
+// =============================================================
+// MAPA LEAFLET
+// =============================================================
+
+const map = L.map('map', { zoomControl: true }).setView([40.244, -3.697], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
+}).addTo(map);
+
+// Polígonos desde TERRITORIOS_GEOJSON (territorios-data.js)
+L.geoJSON(TERRITORIOS_GEOJSON, {
+    style: feature => ({
+        color:       feature.properties.color,
+        fillColor:   feature.properties.color,
+        fillOpacity: 0.22,
+        weight:      2.5,
+        opacity:     0.85
+    }),
+    onEachFeature: (feature, layer) => {
+        layer.bindTooltip(feature.properties.nombre,
+            { sticky: false, direction: 'center' });
+    }
+}).addTo(map);
+
+// Marcadores de las iglesias (IGLESIAS definido en territorios-data.js)
+IGLESIAS.forEach(ig => {
+    const icon = L.divIcon({
+        html: `<div style="
+            width:14px;height:14px;border-radius:50%;
+            background:${ig.color};border:2.5px solid white;
+            box-shadow:0 1px 5px rgba(0,0,0,0.45)"></div>`,
+        iconSize: [14, 14], iconAnchor: [7, 7], className: ''
+    });
+    L.marker([ig.lat, ig.lng], { icon })
+     .addTo(map)
+     .bindPopup(`<strong>${ig.nombre}</strong>`);
+});
+
+// =============================================================
+// BUSCADOR — Nominatim + point-in-polygon (ray casting)
+// =============================================================
+
+// coords: array de [lng, lat] en formato GeoJSON
+function puntoDentro(lat, lng, coords) {
+    let dentro = false;
+    const n = coords.length;
+    let j = n - 1;
+    for (let i = 0; i < n; i++) {
+        const [lngi, lati] = coords[i];
+        const [lngj, latj] = coords[j];
+        if (((lati > lat) !== (latj > lat)) &&
+            (lng < (lngj - lngi) * (lat - lati) / (latj - lati) + lngi)) {
+            dentro = !dentro;
+        }
+        j = i;
+    }
+    return dentro;
+}
+
+function parroquiaDe(lat, lng) {
+    for (const feature of TERRITORIOS_GEOJSON.features) {
+        const coords = feature.geometry.coordinates[0];
+        if (puntoDentro(lat, lng, coords)) return feature.properties;
+    }
+    return null;
+}
+
+let pinResultado = null;
+
+async function buscarDireccion() {
+    const nombre = document.getElementById('nombre-via').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+
+    if (!nombre) {
+        mostrarRes('aviso', '', 'Introduce el nombre de la vía antes de consultar.');
+        return;
+    }
+
+    const query = `${nombre}${numero ? ' ' + numero : ''}, Pinto, Madrid, España`;
+    mostrarRes('', '', '<em>Buscando…</em>');
+
+    try {
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&countrycodes=es&accept-language=es`;
+        const r = await fetch(url);
+        const datos = await r.json();
+
+        // Filtrar resultados dentro del término municipal de Pinto (bbox aproximado)
+        const enPinto = datos.filter(d => {
+            const lt = parseFloat(d.lat), ln = parseFloat(d.lon);
+            return lt > 40.210 && lt < 40.270 && ln > -3.740 && ln < -3.645;
+        });
+
+        if (!enPinto.length) {
+            mostrarRes('error', '',
+                `No se ha encontrado <em>${nombre}${numero ? ' ' + numero : ''}</em> en Pinto. ` +
+                `Comprueba si el nombre está escrito correctamente.`);
+            return;
+        }
+
+        const { lat: latS, lon: lngS } = enPinto[0];
+        const lat = parseFloat(latS), lng = parseFloat(lngS);
+
+        // Marcador en el mapa
+        if (pinResultado) map.removeLayer(pinResultado);
+        pinResultado = L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup(`<strong>${nombre}${numero ? ' ' + numero : ''}</strong>`)
+            .openPopup();
+        map.setView([lat, lng], 16);
+
+        // Parroquia
+        const p = parroquiaDe(lat, lng);
+        if (p) {
+            mostrarRes(p.clase,
+                `<span style="color:${p.color}">${p.nombre}</span>`,
+                `Tu domicilio en <em>${nombre}${numero ? ' ' + numero : ''}</em>
+                 pertenece a la parroquia de <strong>${p.nombre}</strong>.<br>
+                 📞 ${p.tel} · <a href="${p.href}">Ver página de la parroquia →</a>`
+            );
+        } else {
+            mostrarRes('aviso', 'Ubicación no asignada',
+                `La dirección está en Pinto pero queda fuera de los límites parroquiales registrados. ` +
+                `Contacta con cualquiera de las parroquias para confirmarlo.`);
+        }
+
+    } catch (_) {
+        mostrarRes('error', 'Error de conexión',
+            'No se ha podido conectar con el servicio de búsqueda. Comprueba tu conexión e inténtalo de nuevo.');
+    }
+}
+
+function mostrarRes(clase, titulo, detalle) {
+    const div = document.getElementById('resultado');
+    div.className = clase;
+    div.style.display = 'block';
+    div.innerHTML = (titulo ? `<div class="res-titulo">${titulo}</div>` : '') +
+                    `<div class="res-detalle">${detalle}</div>`;
+}
+
+// Buscar con Enter
+['nombre-via', 'numero'].forEach(id => {
+    document.getElementById(id).addEventListener('keypress', e => {
+        if (e.key === 'Enter') buscarDireccion();
+    });
+});
+
+// =============================================================
+// AUTOCOMPLETADO — lista estática generada desde OpenStreetMap (calles-pinto.js)
+// Para regenerar: ejecutar generar_calles.py en la carpeta de trabajo
+// =============================================================
+
+(function () {
+    const dl = document.getElementById('calles-pinto');
+    CALLES_PINTO.forEach(nombre => {
+        const opt = document.createElement('option');
+        opt.value = nombre;
+        dl.appendChild(opt);
+    });
+}());
+
+</script>
+</body>
+</html>
