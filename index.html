@@ -78,6 +78,21 @@
     San José y San Francisco Javier.
   </p>
 
+  <section class="avisos-box" id="avisos-box">
+    <div class="avisos-label">Avisos parroquiales</div>
+    <div id="avisos-content" class="avisos-content">
+      <h3>Horario de Misas de los próximos domingos</h3>
+      <h3>Domingo 31 de mayo</h3>
+      <p>Solemnidad de la Santísima Trinidad y fiesta del Stmo. Cristo del Calvario. Por la mañana, como de costumbre, habrá Misa de 10.00, 11.00 (con los niños) y 12.30, que será la Misa Solemne del Cristo del Calvario. Por la tarde, la procesión saldrá de la parroquia a las 18.00. Se mantiene la Misa de 20.00.</p>
+      <h3>Domingo 7 de junio</h3>
+      <p>Solemnidad del Corpus Christi. Por motivo de la Visita del Papa, se suspende la Misa de 10.00. Se mantienen las demás Misas habituales del domingo.</p>
+      <p>Este día no habrá en Pinto Procesión del Corpus, pues nos uniremos a la que presidirá el Papa en Madrid.</p>
+      <h3>Domingo 14 de junio</h3>
+      <p>A partir de ese domingo, se suspende la Misa de 11.00 hasta septiembre.</p>
+      <p>Después de la Misa de 12.30, ese domingo 14 de junio tendremos una procesión eucarística por los jardines de la parroquia, ya que no habremos tenido en Pinto el domingo anterior la tradicional Procesión del Corpus.</p>
+    </div>
+  </section>
+
   <div class="parish-grid">
 
     <div class="parish-card">
@@ -172,6 +187,27 @@
     Parroquia de Santo Domingo de Silos, Pinto · Diócesis de Getafe
   </div>
 </footer>
+
+<script>
+(function () {
+  var URL_AVISOS = 'https://script.google.com/macros/s/AKfycbyzDO_sXo9fS7P8x9jqqj95uf2tJYXObggy7vTYcQRHRyZ7NjKoRojCL5CYeAEnJcfK/exec';
+  var box = document.getElementById('avisos-box');
+  var content = document.getElementById('avisos-content');
+  if (!box || !content) return;
+  fetch(URL_AVISOS)
+    .then(function (r) { return r.json(); })
+    .then(function (items) {
+      if (!Array.isArray(items) || items.length === 0) { box.remove(); return; }
+      var html = '';
+      items.forEach(function (item) {
+        var t = item.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        html += item.heading ? '<h3>' + t + '</h3>' : '<p>' + t + '</p>';
+      });
+      content.innerHTML = html;
+    })
+    .catch(function () { box.remove(); });
+}());
+</script>
 
 <script>
 (function () {
