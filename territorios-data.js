@@ -32,7 +32,9 @@ const TERRITORIOS_GEOJSON = {
           [-3.701320, 40.248022], // Calle Cataluña (tramo E)
           [-3.698906, 40.249873], // final Calle Cataluña
           [-3.695033, 40.248211], // Calle Cataluña (tramo medio)
-          [-3.69336, 40.24617],   // confluencia — Rotonda Guardia Civil
+          [-3.695022, 40.247809],
+          [-3.694032, 40.246571],
+          [-3.693375, 40.246100],   // confluencia — Rotonda Guardia Civil
           // Frontera SDS/SJ — puntos precisos (C/ San Juan, C/ Infanta Isabel, C/ San Martín, Av. España, C/ Pedro Faura, C/ Torrejón, C/ Fernando VII)
           [-3.693380, 40.245938],
           [-3.694110, 40.245205],
@@ -90,7 +92,7 @@ const TERRITORIOS_GEOJSON = {
         type: "Polygon",
         coordinates: [[
           // Frontera SFJ/SJ — puntos precisos (O → E)
-          [-3.69336, 40.24617],   // confluencia — Rotonda Guardia Civil
+          [-3.693375, 40.246100],   // confluencia — Rotonda Guardia Civil
           [-3.689926, 40.245664],
           [-3.687887, 40.244575], // frontera SFJ/SJ (tramo medio)
           [-3.683971, 40.241655], // ramal enlace A-4/M-506
@@ -141,7 +143,7 @@ const TERRITORIOS_GEOJSON = {
           [-3.694110, 40.245205],
           [-3.693380, 40.245938],
           // Cierre
-          [-3.69336, 40.24617]
+          [-3.693375, 40.246100]
         ]]
       }
     },
@@ -172,6 +174,8 @@ const TERRITORIOS_GEOJSON = {
           [-3.64806, 40.29445],
           [-3.61862, 40.27101],
           [-3.63369, 40.25569],
+          [-3.63499, 40.24699],
+          [-3.63853, 40.23826],
           [-3.64433, 40.22902],   // límite municipal E — inicio frontera SFJ/SJ
           // Frontera SFJ/SJ — puntos precisos (E → O)
           [-3.64918, 40.23059],
@@ -187,8 +191,10 @@ const TERRITORIOS_GEOJSON = {
           [-3.683971, 40.241655], // ramal enlace A-4/M-506
           [-3.687887, 40.244575], // frontera SFJ/SJ (tramo medio)
           [-3.689926, 40.245664],
-          [-3.69336, 40.24617],   // confluencia — Rotonda Guardia Civil
+          [-3.693375, 40.246100],   // confluencia — Rotonda Guardia Civil
           // Frontera SFJ/SDS — puntos precisos (E → O)
+          [-3.694032, 40.246571],
+          [-3.695022, 40.247809],
           [-3.695033, 40.248211], // Calle Cataluña (tramo medio)
           [-3.698906, 40.249873], // final Calle Cataluña
           [-3.701320, 40.248022], // Calle Cataluña (tramo E)
