@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -56,7 +56,6 @@
         .fg { display: flex; flex-direction: column; gap: 0.28rem; }
         .fg label { font-size: 0.82rem; color: #555; font-weight: 600; letter-spacing: 0.01em; }
         .fg-via    { flex: 1; min-width: 220px; }
-        .fg-numero { width: 90px; }
 
         select, input[type="text"] {
             padding: 0.52rem 0.8rem;
@@ -103,6 +102,9 @@
         .res-titulo { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.3rem; }
         .res-detalle { color: #444; }
         .res-detalle a { color: inherit; font-weight: 600; }
+
+        #resultado.frontera { background: #fff4e0; border-left: 4px solid #e07b00; }
+        .res-parroquias { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem; }
 
         /* ── Mapa ── */
         .map-card {
@@ -168,10 +170,6 @@
                        autocomplete="off">
                 <datalist id="calles-pinto"></datalist>
             </div>
-            <div class="fg fg-numero">
-                <label for="numero">Número</label>
-                <input type="text" id="numero" placeholder="ej. 5">
-            </div>
             <button class="btn" onclick="buscarDireccion()">Consultar</button>
         </div>
         <div id="resultado"></div>
@@ -196,7 +194,7 @@
             </div>
         </div>
     </div>
-    <p class="nota">Ante cualquier duda, consulta con la parroquia.</p>
+    <p class="nota">Ante cualquier duda, consulte con cualquiera de las tres parroquias.</p>
 
 </div><!-- /wrap -->
 
@@ -276,16 +274,47 @@ function parroquiaDe(lat, lng) {
 
 let pinResultado = null;
 
+// ── Calles en el límite parroquial ────────────────────────────────────────────
+// Cada entrada: expresión regular sobre nombre normalizado (minúsculas, sin acentos),
+// exclusión opcional, e ids de las dos parroquias implicadas.
+const FRONTERAS = [
+    // SDS ↔ SJ
+    { re: /\bsan\s+juan\b/,     excl: null,      ids: ["sds","sj"]  },
+    { re: /infanta\s+isabel/,   excl: null,      ids: ["sds","sj"]  },
+    { re: /\bsan\s+martin\b/,   excl: null,      ids: ["sds","sj"]  },
+    { re: /\bespana\b/,         excl: null,      ids: ["sds","sj"]  },
+    { re: /pedro\s+faura/,      excl: null,      ids: ["sds","sj"]  },
+    { re: /\btorrejon\b/,       excl: /velasco/, ids: ["sds","sj"]  },
+    { re: /fernando\s+vii/,     excl: null,      ids: ["sds","sj"]  },
+    // SDS ↔ SFJ
+    { re: /\bcatalun/,          excl: null,      ids: ["sds","sfj"] },
+    { re: /paseo.*artes/,       excl: null,      ids: ["sds","sfj"] },
+    { re: /\baguilas\b/,        excl: null,      ids: ["sds","sfj"] },
+    // SFJ ↔ SJ
+    { re: /canada\s+real/,      excl: null,      ids: ["sfj","sj"]  },
+];
+
+function parroquiasFrontera(nombre) {
+    const n = nombre.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    for (const f of FRONTERAS) {
+        if (f.re.test(n) && (!f.excl || !f.excl.test(n))) {
+            return f.ids.map(id =>
+                TERRITORIOS_GEOJSON.features.find(ft => ft.properties.id === id).properties
+            );
+        }
+    }
+    return null;
+}
+
 async function buscarDireccion() {
     const nombre = document.getElementById('nombre-via').value.trim();
-    const numero = document.getElementById('numero').value.trim();
 
     if (!nombre) {
         mostrarRes('aviso', '', 'Introduce el nombre de la vía antes de consultar.');
         return;
     }
 
-    const query = `${nombre}${numero ? ' ' + numero : ''}, Pinto, Madrid, España`;
+    const query = `${nombre}, Pinto, Madrid, España`;
     mostrarRes('', '', '<em>Buscando…</em>');
 
     try {
@@ -301,7 +330,7 @@ async function buscarDireccion() {
 
         if (!enPinto.length) {
             mostrarRes('error', '',
-                `No se ha encontrado <em>${nombre}${numero ? ' ' + numero : ''}</em> en Pinto. ` +
+                `No se ha encontrado <em>${nombre}</em> en Pinto. ` +
                 `Comprueba si el nombre está escrito correctamente.`);
             return;
         }
@@ -313,16 +342,32 @@ async function buscarDireccion() {
         if (pinResultado) map.removeLayer(pinResultado);
         pinResultado = L.marker([lat, lng])
             .addTo(map)
-            .bindPopup(`<strong>${nombre}${numero ? ' ' + numero : ''}</strong>`)
+            .bindPopup(`<strong>${nombre}</strong>`)
             .openPopup();
         map.setView([lat, lng], 16);
+
+        // ¿Calle en el límite entre dos parroquias?
+        const frontera = parroquiasFrontera(nombre);
+        if (frontera) {
+            const [p1, p2] = frontera;
+            mostrarRes('frontera', '⚠ Límite parroquial',
+                `Esta calle forma parte del límite entre <strong>${p1.nombre}</strong> y <strong>${p2.nombre}</strong>. ` +
+                `Los portales pares pertenecen a una parroquia y los impares a otra. ` +
+                `Compruebe en el mapa de qué lado está su portal.` +
+                `<div class="res-parroquias">` +
+                `<div>📞 <strong>${p1.nombre}</strong>: ${p1.tel} · <a href="${p1.href}">Ver página →</a></div>` +
+                `<div>📞 <strong>${p2.nombre}</strong>: ${p2.tel} · <a href="${p2.href}">Ver página →</a></div>` +
+                `</div>`
+            );
+            return;
+        }
 
         // Parroquia
         const p = parroquiaDe(lat, lng);
         if (p) {
             mostrarRes(p.clase,
                 `<span style="color:${p.color}">${p.nombre}</span>`,
-                `Tu domicilio en <em>${nombre}${numero ? ' ' + numero : ''}</em>
+                `La dirección <em>${nombre}</em>
                  pertenece a la parroquia de <strong>${p.nombre}</strong>.<br>
                  📞 ${p.tel} · <a href="${p.href}">Ver página de la parroquia →</a>`
             );
@@ -347,10 +392,8 @@ function mostrarRes(clase, titulo, detalle) {
 }
 
 // Buscar con Enter
-['nombre-via', 'numero'].forEach(id => {
-    document.getElementById(id).addEventListener('keypress', e => {
-        if (e.key === 'Enter') buscarDireccion();
-    });
+document.getElementById('nombre-via').addEventListener('keypress', e => {
+    if (e.key === 'Enter') buscarDireccion();
 });
 
 // =============================================================
