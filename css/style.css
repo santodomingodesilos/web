@@ -845,6 +845,11 @@ main .contact-info strong { color: var(--azul); }
   display: block;
 }
 
+.testimonio-firma {
+  text-align: right;
+  font-style: italic;
+}
+
 /* Imágenes que deben verse enteras (infografías, carteles) */
 .testimonio-galeria--completa { grid-template-columns: 1fr; }
 
