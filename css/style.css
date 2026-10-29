@@ -845,6 +845,18 @@ main .contact-info strong { color: var(--azul); }
   display: block;
 }
 
+/* Imágenes que deben verse enteras (infografías, carteles) */
+.testimonio-galeria--completa { grid-template-columns: 1fr; }
+
+.testimonio-galeria--completa img {
+  aspect-ratio: auto;
+  object-fit: contain;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.testimonio-galeria--completa figcaption { text-align: center; }
+
 .testimonio-galeria figcaption {
   font-size: 0.85rem;
   color: var(--texto-cl);
