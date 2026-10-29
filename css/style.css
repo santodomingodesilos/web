@@ -763,3 +763,101 @@ main .contact-info strong { color: var(--azul); }
   font-style: italic;
   font-size: 0.9rem;
 }
+
+/* --- Testimonios --- */
+.testimonios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 2rem 0;
+}
+
+.testimonio-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--gris-cl);
+  border: 1px solid var(--gris);
+  border-top: 4px solid var(--dorado);
+  border-radius: 4px;
+  overflow: hidden;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.testimonio-card:hover {
+  border-color: var(--azul);
+  border-top-color: var(--dorado);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  color: var(--texto);
+}
+
+.testimonio-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.testimonio-card-body { padding: 18px 20px 22px; }
+
+.testimonio-card h2 {
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
+  color: var(--azul);
+  margin: 0.3rem 0 0.6rem;
+  line-height: 1.35;
+}
+
+.testimonio-card p {
+  font-size: 0.95rem;
+  color: var(--texto-cl);
+}
+
+.testimonio-meta {
+  font-family: Arial, sans-serif;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--texto-cl);
+}
+
+.testimonio-meta strong { color: var(--azul); }
+
+.testimonio-texto { margin: 1.5rem 0 2rem; }
+
+.testimonio-texto p { margin-bottom: 1rem; }
+
+.testimonio-galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 2rem 0;
+}
+
+.testimonio-galeria figure { margin: 0; }
+
+.testimonio-galeria img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+.testimonio-galeria figcaption {
+  font-size: 0.85rem;
+  color: var(--texto-cl);
+  margin-top: 4px;
+}
+
+.testimonio-volver {
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+}
+
+.testimonios-vacio {
+  color: var(--texto-cl);
+  font-style: italic;
+}
