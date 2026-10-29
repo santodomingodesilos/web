@@ -6,6 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Acompañando a los jóvenes hacia Dios</title>
   <link rel="stylesheet" href="../../css/style.css">
+  <!-- Contador de visitas (uno por testimonio, según el nombre del archivo) -->
+  <script>
+    (function() {
+      var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmX2N3iTpNJNer5_p-226W2UHpmNsqxUz40Ru1Lw0PEJkwrsXwz8dOtSja-ixRZg20Tg/exec';
+      var slug = location.pathname.split('/').pop().replace(/\.html$/, '').toLowerCase();
+      fetch(SCRIPT_URL + '?action=increment&pagina=testimonios/' + encodeURIComponent(slug), { mode: 'no-cors' });
+    })();
+  </script>
 </head>
 <body>
 
