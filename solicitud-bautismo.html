@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Solicitud de partida de Bautismo en la Parroquia de Santo Domingo de Silos (Pinto, Madrid).">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solicitud de partida o volante de Bautismo</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- CABECERA -->
+<header class="site-header">
+  <div class="header-inner">
+    <img src="img/escudo-parroquia.png" alt="Escudo de la Parroquia de Santo Domingo de Silos" class="site-logo">
+    <div>
+      <div class="site-title"><a href="index.html">Parroquia de Santo Domingo de Silos, Pinto</a></div>
+      <div class="site-subtitle">Arciprestazgo de Valdemoro - Diócesis de Getafe</div>
+    </div>
+  </div>
+</header>
+
+<!-- NAVEGACIÓN -->
+<nav class="main-nav" aria-label="Navegación principal">
+  <button class="nav-toggle" onclick="this.parentElement.querySelector('ul').classList.toggle('open')">☰ Menú</button>
+  <ul>
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="horarios.html">Horarios</a></li>
+    <li><a href="avisos.html">Grupo de avisos</a></li>
+    <li><a href="testimonios/index.html">Testimonios</a></li>
+    <li><a href="adoracion.html">Adoración eucarística</a></li>
+    <li><a href="iniciacion.html">Bautismo · Primera Comunión · Confirmación</a></li>
+    <li>
+      <span>Bodas ▾</span>
+      <ul class="submenu">
+        <li><a href="bodas/index.html">Información general</a></li>
+        <li><a href="bodas/tramites.html">Trámites a seguir</a></li>
+        <li><a href="bodas/cursillos.html">Cursillos prematrimoniales</a></li>
+        <li><a href="bodas/preguntas.html">Preguntas sobre el expediente</a></li>
+        <li><a href="bodas/celebracion.html">Normas para la celebración</a></li>
+        <li><a href="bodas/repertorio.html">Repertorio musical</a></li>
+      </ul>
+    </li>
+    <li><a href="santos/index.html">Los santos de la parroquia</a></li>
+    <li><a href="contable/index.html">Información contable</a></li>
+    <li><a href="solicitud-bautismo.html">Solicitud de partida o volante de Bautismo</a></li>
+    <li><a href="colabora.html">Colabora con la parroquia</a></li>
+  </ul>
+</nav>
+<div class="parish-band sds"></div>
+
+<!-- CONTENIDO -->
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="parish-tag">Santo Domingo de Silos</p>
+    <h1>Solicitud de partida o volante de Bautismo</h1>
+  </div>
+</div>
+<main class="content content-narrow">
+  <p>Para solicitar una partida o un volante de Bautismo, lo mejor es acudir al despacho 
+  parroquial en 
+  <a href="horarios.html#despacho">horario de atención al público</a>.</p>
+
+  <p>En caso de que esto no sea posible, otra opción es rellenar el siguiente formulario. 
+  Daremos respuesta en breve.</p>
+
+  <div class="highlight-box">
+    <p><a href="https://forms.gle/AEkKmQNd8KDZAUe69">
+    <strong>Formulario para solicitar online una partida o un volante de Bautismo &rarr;</strong>
+    </a></p>
+  </div>
+</main>
+
+
+<!-- PIE DE PÁGINA -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Santo Domingo de Silos</h4>
+      <p>Plaza de Egido de la Fuente, s/n<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:916911214">91 691 12 14</a><br>
+      <a href="mailto:santodomingodesilos-pinto@diocesisgetafe.es">santodomingodesilos-pinto@diocesisgetafe.es</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>San José</h4>
+      <p>Calle Terreros, 8<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:638231036">638 231 036</a><br>
+      <a href="mailto:sanjose-pinto@diocesisgetafe.es">sanjose-pinto@diocesisgetafe.es</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>San Francisco Javier</h4>
+      <p>Av. Antonio López, 20<br>
+      28320 Pinto (Madrid)<br>
+      Tel. <a href="tel:679597310">679 597 310</a><br>
+      <a href="mailto:sanfranciscojavierpinto@hotmail.com">sanfranciscojavierpinto@hotmail.com</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Diócesis de Getafe</h4>
+      <p><a href="https://www.diocesisgetafe.es">diocesisgetafe.es</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    Parroquia de Santo Domingo de Silos, Pinto · Diócesis de Getafe
+  </div>
+</footer>
+
+<script>
+(function () {
+  document.querySelectorAll('.main-nav li > span').forEach(function (el) {
+    el.addEventListener('click', function () { this.parentElement.classList.toggle('open'); });
+  });
+  var ruta = window.location.pathname;
+  if (ruta.endsWith('/')) ruta += 'index.html';
+  var mejor = null, mejorLen = 0;
+  document.querySelectorAll('.main-nav a').forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (!href) return;
+    var abs = new URL(href, window.location.href).pathname;
+    if (abs === ruta && abs.length > mejorLen) { mejor = a; mejorLen = abs.length; }
+  });
+  if (mejor) {
+    var li = mejor.closest('li');
+    while (li) {
+      li.classList.add('active');
+      var padre = li.parentElement;
+      li = (padre && padre.classList.contains('submenu')) ? padre.closest('li') : null;
+    }
+  }
+}());
+</script>
+</body>
+</html>

@@ -13,9 +13,7 @@ const TERRITORIOS_GEOJSON = {
         id:     "sds",
         nombre: "Santo Domingo de Silos",
         color:  "#1a3a5c",
-        clase:  "sds",
-        tel:    "91 691 12 14",
-        href:   "index.html#sds"
+        clase:  "sds"
       },
       geometry: {
         type: "Polygon",
@@ -84,9 +82,7 @@ const TERRITORIOS_GEOJSON = {
         id:     "sj",
         nombre: "San José",
         color:  "#2e5c3a",
-        clase:  "sj",
-        tel:    "638 231 036",
-        href:   "index.html#sj"
+        clase:  "sj"
       },
       geometry: {
         type: "Polygon",
@@ -155,9 +151,7 @@ const TERRITORIOS_GEOJSON = {
         id:     "sfj",
         nombre: "San Francisco Javier",
         color:  "#7a3030",
-        clase:  "sfj",
-        tel:    "679 597 310",
-        href:   "index.html#sfj"
+        clase:  "sfj"
       },
       geometry: {
         type: "Polygon",

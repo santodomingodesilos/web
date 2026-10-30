@@ -87,7 +87,6 @@
         .res-detalle a { color: inherit; font-weight: 600; }
 
         #resultado.frontera { background: #fff4e0; border-left: 4px solid #e07b00; }
-        .res-parroquias { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem; }
 
         /* ── Mapa ── */
         .map-card {
@@ -149,30 +148,26 @@
   <button class="nav-toggle" onclick="this.parentElement.querySelector('ul').classList.toggle('open')">☰ Menú</button>
   <ul>
     <li><a href="index.html">Inicio</a></li>
+    <li><a href="horarios.html">Horarios</a></li>
+    <li><a href="avisos.html">Grupo de avisos</a></li>
+    <li><a href="testimonios/index.html">Testimonios</a></li>
+    <li><a href="adoracion.html">Adoración eucarística</a></li>
+    <li><a href="iniciacion.html">Bautismo · Primera Comunión · Confirmación</a></li>
     <li>
-      <span>Santo Domingo de Silos ▾</span>
+      <span>Bodas ▾</span>
       <ul class="submenu">
-        <li><a href="santo-domingo/horarios.html">Horarios</a></li>
-        <li><a href="santo-domingo/avisos.html">Grupo de avisos</a></li>
-        <li><a href="santo-domingo/testimonios/index.html">Testimonios</a></li>
-        <li><a href="santo-domingo/adoracion.html">Adoración eucarística</a></li>
-        <li><a href="santo-domingo/iniciacion.html">Bautismo · Primera Comunión · Confirmación</a></li>
-        <li>
-          <a href="santo-domingo/bodas/index.html">Bodas ▸</a>
-          <ul class="submenu">
-            <li><a href="santo-domingo/bodas/tramites.html">Trámites a seguir</a></li>
-            <li><a href="santo-domingo/bodas/cursillos.html">Cursillos prematrimoniales</a></li>
-            <li><a href="santo-domingo/bodas/preguntas.html">Preguntas sobre el expediente</a></li>
-            <li><a href="santo-domingo/bodas/celebracion.html">Normas para la celebración</a></li>
-            <li><a href="santo-domingo/bodas/repertorio.html">Repertorio musical</a></li>
-          </ul>
-        </li>
-        <li><a href="santo-domingo/santos/index.html">Los santos de la parroquia</a></li>
-        <li><a href="santo-domingo/contable/index.html">Información contable</a></li>
-        <li><a href="santo-domingo/solicitud-bautismo.html">Solicitud de partida o volante de Bautismo</a></li>
-        <li><a href="santo-domingo/colabora.html">Colabora con la parroquia</a></li>
+        <li><a href="bodas/index.html">Información general</a></li>
+        <li><a href="bodas/tramites.html">Trámites a seguir</a></li>
+        <li><a href="bodas/cursillos.html">Cursillos prematrimoniales</a></li>
+        <li><a href="bodas/preguntas.html">Preguntas sobre el expediente</a></li>
+        <li><a href="bodas/celebracion.html">Normas para la celebración</a></li>
+        <li><a href="bodas/repertorio.html">Repertorio musical</a></li>
       </ul>
     </li>
+    <li><a href="santos/index.html">Los santos de la parroquia</a></li>
+    <li><a href="contable/index.html">Información contable</a></li>
+    <li><a href="solicitud-bautismo.html">Solicitud de partida o volante de Bautismo</a></li>
+    <li><a href="colabora.html">Colabora con la parroquia</a></li>
   </ul>
 </nav>
 <div class="parish-band "></div>
@@ -405,11 +400,7 @@ async function buscarDireccion() {
             mostrarRes('frontera', '⚠ Límite parroquial',
                 `Esta calle forma parte del límite entre <strong>${p1.nombre}</strong> y <strong>${p2.nombre}</strong>. ` +
                 `Los portales pares pertenecen a una parroquia y los impares a otra. ` +
-                `Compruebe en el mapa de qué lado está su portal.` +
-                `<div class="res-parroquias">` +
-                `<div>📞 <strong>${p1.nombre}</strong>: ${p1.tel} · <a href="${p1.href}">Ver datos de contacto →</a></div>` +
-                `<div>📞 <strong>${p2.nombre}</strong>: ${p2.tel} · <a href="${p2.href}">Ver datos de contacto →</a></div>` +
-                `</div>`
+                `Compruebe en el mapa de qué lado está su portal.`
             );
             return;
         }
@@ -420,13 +411,11 @@ async function buscarDireccion() {
             mostrarRes(p.clase,
                 `<span style="color:${p.color}">${p.nombre}</span>`,
                 `La dirección <em>${nombre}</em>
-                 pertenece a la parroquia de <strong>${p.nombre}</strong>.<br>
-                 📞 ${p.tel} · <a href="${p.href}">Ver datos de contacto de la parroquia →</a>`
+                 pertenece a la parroquia de <strong>${p.nombre}</strong>.`
             );
         } else {
             mostrarRes('aviso', 'Ubicación no asignada',
-                `La dirección está en Pinto pero queda fuera de los límites parroquiales registrados. ` +
-                `Contacta con cualquiera de las parroquias para confirmarlo.`);
+                `La dirección está en Pinto pero queda fuera de los límites parroquiales registrados.`);
         }
 
     } catch (_) {

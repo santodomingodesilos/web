@@ -72,40 +72,58 @@ img { max-width: 100%; height: auto; }
   margin-top: 2px;
 }
 
-/* --- Navegación --- */
+/* --- Navegación (botón «☰ Menú» que despliega la lista en todos los anchos) --- */
 nav.main-nav {
   background: var(--azul-cl);
   position: relative;
   z-index: 100;
 }
 
+.nav-toggle {
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: none;
+  border: none;
+  color: var(--blanco);
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  text-align: left;
+  cursor: pointer;
+  padding: 12px 20px;
+}
+
+.nav-toggle:hover { color: var(--dorado-cl); }
+
 nav.main-nav ul {
   list-style: none;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  flex-wrap: wrap;
+  padding: 0;
 }
 
-nav.main-nav > ul > li {
-  position: relative;
+nav.main-nav > ul {
+  display: none;
+  padding-bottom: 8px;
 }
+
+nav.main-nav > ul.open { display: block; }
 
 nav.main-nav > ul > li > a,
 nav.main-nav > ul > li > span {
   display: block;
-  padding: 12px 16px;
+  padding: 10px 20px;
   color: var(--blanco);
   font-family: Arial, sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   letter-spacing: 0.03em;
   cursor: pointer;
-  white-space: nowrap;
 }
 
 nav.main-nav > ul > li > a:hover,
-nav.main-nav > ul > li:hover > span {
+nav.main-nav > ul > li > span:hover {
   background: rgba(255,255,255,0.15);
   text-decoration: none;
   color: var(--dorado-cl);
@@ -117,36 +135,20 @@ nav.main-nav > ul > li.active > span {
   color: var(--dorado-cl);
 }
 
-nav.main-nav .submenu li.active > a {
-  background: var(--azul-cl);
-  color: var(--dorado-cl);
-}
-
-/* Submenús */
+/* Submenú (Bodas): se abre con un clic sobre su título */
 nav.main-nav .submenu {
   display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: var(--azul);
-  min-width: 260px;
-  border-top: 2px solid var(--dorado);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 200;
+  background: rgba(0,0,0,0.2);
 }
 
-nav.main-nav li:hover > .submenu { display: block; }
-
-nav.main-nav .submenu li {
-  position: relative;
-}
+nav.main-nav li.open > .submenu { display: block; }
 
 nav.main-nav .submenu li a {
   display: block;
-  padding: 10px 18px;
+  padding: 9px 20px 9px 40px;
   color: var(--gris);
   font-family: Arial, sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.86rem;
 }
 
 nav.main-nav .submenu li a:hover {
@@ -155,32 +157,9 @@ nav.main-nav .submenu li a:hover {
   text-decoration: none;
 }
 
-nav.main-nav .submenu .submenu {
-  top: 0;
-  left: 100%;
-  border-top: none;
-  border-left: 2px solid var(--dorado);
-}
-
-/* Puente invisible para evitar que el submenú se cierre al mover el ratón diagonalmente */
-nav.main-nav .submenu .submenu::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -8px;
-  width: 8px;
-  height: 100%;
-}
-
-/* Hamburger (móvil) */
-.nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--blanco);
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 10px 20px;
+nav.main-nav .submenu li.active > a {
+  background: var(--azul-cl);
+  color: var(--dorado-cl);
 }
 
 /* --- Franja de parroquia (color diferenciador) --- */
@@ -555,26 +534,6 @@ main .contact-info strong { color: var(--azul); }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
-  .nav-toggle { display: block; }
-
-  nav.main-nav > ul {
-    display: none;
-    flex-direction: column;
-    padding: 0;
-  }
-
-  nav.main-nav > ul.open { display: flex; }
-
-  nav.main-nav .submenu {
-    position: static;
-    box-shadow: none;
-    border: none;
-    background: rgba(0,0,0,0.2);
-  }
-
-  nav.main-nav li:hover > .submenu { display: none; }
-  nav.main-nav li.open > .submenu { display: block; }
-
   .page-layout {
     grid-template-columns: 1fr;
   }
