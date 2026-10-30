@@ -152,7 +152,6 @@
     <li>
       <span>Santo Domingo de Silos ▾</span>
       <ul class="submenu">
-        <li><a href="santo-domingo/index.html">Inicio</a></li>
         <li><a href="santo-domingo/horarios.html">Horarios</a></li>
         <li><a href="santo-domingo/avisos.html">Grupo de avisos</a></li>
         <li><a href="santo-domingo/testimonios/index.html">Testimonios</a></li>
@@ -172,20 +171,6 @@
         <li><a href="santo-domingo/contable/index.html">Información contable</a></li>
         <li><a href="santo-domingo/solicitud-bautismo.html">Solicitud de partida o volante de Bautismo</a></li>
         <li><a href="santo-domingo/colabora.html">Colabora con la parroquia</a></li>
-      </ul>
-    </li>
-    <li>
-      <span>San José ▾</span>
-      <ul class="submenu">
-        <li><a href="san-jose/index.html">Inicio</a></li>
-        <li><a href="san-jose/catequesis.html">Catequesis de Primera Comunión</a></li>
-      </ul>
-    </li>
-    <li>
-      <span>San Francisco Javier ▾</span>
-      <ul class="submenu">
-        <li><a href="san-francisco-javier/index.html">Inicio</a></li>
-        <li><a href="san-francisco-javier/catequesis.html">Catequesis de Primera Comunión</a></li>
       </ul>
     </li>
   </ul>
@@ -422,8 +407,8 @@ async function buscarDireccion() {
                 `Los portales pares pertenecen a una parroquia y los impares a otra. ` +
                 `Compruebe en el mapa de qué lado está su portal.` +
                 `<div class="res-parroquias">` +
-                `<div>📞 <strong>${p1.nombre}</strong>: ${p1.tel} · <a href="${p1.href}">Ver página →</a></div>` +
-                `<div>📞 <strong>${p2.nombre}</strong>: ${p2.tel} · <a href="${p2.href}">Ver página →</a></div>` +
+                `<div>📞 <strong>${p1.nombre}</strong>: ${p1.tel} · <a href="${p1.href}">Ver datos de contacto →</a></div>` +
+                `<div>📞 <strong>${p2.nombre}</strong>: ${p2.tel} · <a href="${p2.href}">Ver datos de contacto →</a></div>` +
                 `</div>`
             );
             return;
@@ -436,7 +421,7 @@ async function buscarDireccion() {
                 `<span style="color:${p.color}">${p.nombre}</span>`,
                 `La dirección <em>${nombre}</em>
                  pertenece a la parroquia de <strong>${p.nombre}</strong>.<br>
-                 📞 ${p.tel} · <a href="${p.href}">Ver página de la parroquia →</a>`
+                 📞 ${p.tel} · <a href="${p.href}">Ver datos de contacto de la parroquia →</a>`
             );
         } else {
             mostrarRes('aviso', 'Ubicación no asignada',
