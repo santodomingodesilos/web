@@ -815,3 +815,90 @@ main .contact-info strong { color: var(--azul); }
   color: var(--texto-cl);
   font-style: italic;
 }
+
+/* --- Carrusel de imágenes (portada; lo genera carrusel.py) --- */
+.carrusel {
+  position: relative;
+  margin: 0 0 40px;
+  background: var(--gris-cl);
+  border: 1px solid var(--gris);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.carrusel-pista {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: 75vh;
+  width: 100%;
+}
+
+.carrusel-slide {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+.carrusel-slide.activa { opacity: 1; pointer-events: auto; }
+.carrusel--uno .carrusel-slide { opacity: 1; }
+
+.carrusel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.carrusel-ant,
+.carrusel-sig {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(26, 58, 92, 0.75);
+  color: var(--blanco);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.carrusel-ant { left: 12px; }
+.carrusel-sig { right: 12px; }
+.carrusel-ant:hover,
+.carrusel-sig:hover { background: var(--azul); color: var(--dorado-cl); }
+
+.carrusel-puntos {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carrusel-puntos button {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 2px solid var(--blanco);
+  border-radius: 50%;
+  background: rgba(26, 58, 92, 0.5);
+  cursor: pointer;
+}
+
+.carrusel-puntos button.activo { background: var(--dorado); }
+
+.carrusel--uno .carrusel-ant,
+.carrusel--uno .carrusel-sig,
+.carrusel--uno .carrusel-puntos { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .carrusel-slide { transition: none; }
+}

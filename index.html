@@ -72,11 +72,36 @@
     además de la información básica y de contacto de las otras dos parroquias del municipio de Pinto:
     San José y San Francisco Javier.
   </p>
+  <p class="intro-text">
+    Pinchando en el menú encontrará más información sobre la actividad de la parroquia de Santo Domingo de Silos,
+    distribuida en diferentes apartados (horarios, testimonios, oración, sacramentos, contabilidad, servicios del
+    despacho parroquial, etc.).
+  </p>
 
+  <h2>Formulario de contacto</h2>
+  <p>Puede dejar su mensaje a través del
+  <a href="https://forms.gle/fe9MB9V19r1fU8v29">formulario de contacto</a>.</p>
+
+  <h2>¿A qué parroquia de Pinto pertenece mi domicilio?</h2>
+  <p>Puede consultarlo en el
+  <a href="mi-parroquia.html">buscador de domicilios de Pinto</a>.</p>
+
+  <h2>Avisos</h2>
   <section class="avisos-box" id="avisos-box" style="display:none">
-    <div class="avisos-label">Avisos</div>
     <div id="avisos-content" class="avisos-content"></div>
   </section>
+
+  <!-- CARRUSEL:INICIO (generado por carrusel.py; no editar a mano) -->
+  <section class="carrusel" aria-roledescription="carrusel" aria-label="Imágenes de la parroquia">
+    <div class="carrusel-pista">
+      <figure class="carrusel-slide activa"><img src="img/carrusel/01-grupo-de-oracion-de-los-martes.jpg" alt="Grupo de oración de los martes"></figure>
+      <figure class="carrusel-slide"><img src="img/carrusel/02-domingos-de-adviento-2026.jpg" alt="Domingos de Adviento 2026" loading="lazy"></figure>
+    </div>
+    <button type="button" class="carrusel-ant" aria-label="Imagen anterior">&#8249;</button>
+    <button type="button" class="carrusel-sig" aria-label="Imagen siguiente">&#8250;</button>
+    <div class="carrusel-puntos"></div>
+  </section>
+  <!-- CARRUSEL:FIN -->
 
   <div class="parish-grid">
 
@@ -131,12 +156,6 @@
     </div>
 
   </div>
-
-  <h2>Formulario de contacto</h2>
-  <p>Puede dejar su mensaje a través del
-  <a href="https://forms.gle/fe9MB9V19r1fU8v29">formulario de contacto</a>.</p>
-
-  <p><a href="mi-parroquia.html">¿A qué parroquia de Pinto pertenece mi domicilio? →</a></p>
 
 </main>
 
@@ -225,5 +244,48 @@
   }
 }());
 </script>
+<script>
+(function () {
+  var c = document.querySelector('.carrusel');
+  if (!c) return;
+  var slides = c.querySelectorAll('.carrusel-slide');
+  var puntos = c.querySelector('.carrusel-puntos');
+  var n = slides.length, i = 0, timer = null;
+  var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (n < 2) { c.classList.add('carrusel--uno'); return; }
+  for (var k = 0; k < n; k++) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Imagen ' + (k + 1) + ' de ' + n);
+    b.addEventListener('click', (function (k) { return function () { ir(k); reiniciar(); }; })(k));
+    puntos.appendChild(b);
+  }
+  function ir(k) {
+    i = (k + n) % n;
+    for (var j = 0; j < n; j++) {
+      slides[j].classList.toggle('activa', j === i);
+      slides[j].setAttribute('aria-hidden', j === i ? 'false' : 'true');
+      puntos.children[j].classList.toggle('activo', j === i);
+    }
+  }
+  function reiniciar() {
+    clearInterval(timer);
+    if (!quieto) timer = setInterval(function () { ir(i + 1); }, 6000);
+  }
+  c.querySelector('.carrusel-ant').addEventListener('click', function () { ir(i - 1); reiniciar(); });
+  c.querySelector('.carrusel-sig').addEventListener('click', function () { ir(i + 1); reiniciar(); });
+  c.addEventListener('mouseenter', function () { clearInterval(timer); });
+  c.addEventListener('mouseleave', reiniciar);
+  var x0 = null;
+  c.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  c.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) { ir(dx < 0 ? i + 1 : i - 1); reiniciar(); }
+  });
+  ir(0); reiniciar();
+}());
+</script>
+
 </body>
 </html>
