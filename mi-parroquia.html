@@ -145,7 +145,10 @@
 
 <!-- NAVEGACIÓN -->
 <nav class="main-nav" aria-label="Navegación principal">
-  <button class="nav-toggle" onclick="this.parentElement.querySelector('ul').classList.toggle('open')">☰ Menú</button>
+  <div class="nav-bar">
+    <button class="nav-toggle" onclick="this.closest('nav').querySelector('ul').classList.toggle('open')">☰ Menú</button>
+    <a class="nav-visita" href="visita-guiada/index.html">Visita guiada</a>
+  </div>
   <ul>
     <li><a href="index.html">Inicio</a></li>
     <li><a href="horarios.html">Horarios</a></li>
