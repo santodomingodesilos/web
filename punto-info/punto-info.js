@@ -24,6 +24,7 @@
   }
 
   function primerToque() {
+    if (!/(^|\.)parroquiasantodomingo\.es$|^santodomingodesilos\.github\.io$/.test(location.hostname)) return;   // solo cuenta en la web publicada
     if (!leer('pi-sesion')) {
       guardar('pi-sesion', '1');
       try { fetch(CONTADOR + '?action=increment&pagina=punto-info', { mode: 'no-cors' }); } catch (e) {}

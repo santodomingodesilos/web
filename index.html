@@ -9,6 +9,7 @@
   <!-- Contador de visitas -->
   <script>
     (function() {
+      if (!/(^|\.)parroquiasantodomingo\.es$|^santodomingodesilos\.github\.io$/.test(location.hostname)) return;   // solo cuenta en la web publicada, no en copias locales
       var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmX2N3iTpNJNer5_p-226W2UHpmNsqxUz40Ru1Lw0PEJkwrsXwz8dOtSja-ixRZg20Tg/exec';
       fetch(SCRIPT_URL + '?action=increment', { mode: 'no-cors' });
     })();
